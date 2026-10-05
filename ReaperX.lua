@@ -1,17 +1,3 @@
---[[
-	ReaperX UI Library (module)
-
-	local Library = loadstring(readfile("ReaperX.lua"))()
-	local Window = Library:Window({ Name = "My Hub", SubName = "v1.0", Logo = "0" })
-	local Page = Window:Page({ Name = "Main", Icon = "10734975692", Columns = 2 })
-	local Section = Page:Section({ Name = "Main", Description = "", Icon = "109841253338329", Side = 1 })
-
-	Section:Toggle({ Name = "Example", Flag = "Example", Default = false, Callback = function(value) end })
-	print(Library:GetFlag("Example"))
-
-	Library:Unload() -- ลบ UI, ตัด connection และ object ทั้งหมดที่ library สร้าง
-]]
-
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
@@ -151,10 +137,10 @@ local keyNames = {
 
 Library.Theme = table.clone(({
 	Preset = {
-		AccentGradient = Color3.fromRGB(183, 115, 115), ["Background 2"] = Color3.fromRGB(10, 10, 12),
+		AccentGradient = Color3.fromRGB(0, 116, 200), ["Background 2"] = Color3.fromRGB(10, 10, 12),
 		Background = Color3.fromRGB(12, 12, 14), Text = Color3.fromRGB(235, 235, 235), Outline = Color3.fromRGB(25, 25, 28),
 		["Section Top"] = Color3.fromRGB(28, 26, 32), ["Section Background"] = Color3.fromRGB(10, 10, 12),
-		["Section Background 2"] = Color3.fromRGB(14, 14, 16), Accent = Color3.fromRGB(255, 0, 0), Element = Color3.fromRGB(16, 16, 18),
+		["Section Background 2"] = Color3.fromRGB(14, 14, 16), Accent = Color3.fromRGB(0, 85, 255), Element = Color3.fromRGB(16, 16, 18),
 	},
 }).Preset)
 for _, folder in Library.Folders do
@@ -3001,7 +2987,7 @@ function Library:Window(properties)
 	settingsPanel:Keybind({
 		Name = "Menu Keybind",
 		Flag = "MenuBind",
-		Default = Enum.KeyCode.Z,
+		Default = Enum.KeyCode.LeftControl,
 		Callback = function(toggled)
 			window:SetOpen(toggled)
 		end,
