@@ -6289,11 +6289,33 @@ function Library.Sections:DropdownEx(properties)
 		Dropdown = UIObject:Create("Frame", {
 			Parent = dropdownEx.Section.Items.Content.Instance,
 			Name = "DropdownEx",
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 27),
+			BackgroundTransparency = 0,
+			Size = UDim2.new(1, 0, 0, 34),
 			ZIndex = 2,
+			BackgroundColor3 = Color3.fromRGB(27, 26, 29),
 		}),
 	}
+	ui.Dropdown:AddToTheme({ BackgroundColor3 = "Element" })
+	UIObject:Create("UICorner", { Parent = ui.Dropdown.Instance, CornerRadius = UDim.new(0, 5) })
+	ui.AccentBar = UIObject:Create("Frame", {
+		Parent = ui.Dropdown.Instance,
+		Size = UDim2.new(0, 2, 1, -12),
+		Position = UDim2.new(0, 4, 0.5, 0),
+		AnchorPoint = Vector2.new(0, 0.5),
+		ZIndex = 3,
+		BackgroundTransparency = 0.5,
+		BackgroundColor3 = Color3.fromRGB(80, 80, 90),
+	})
+	UIObject:Create("UICorner", { Parent = ui.AccentBar.Instance, CornerRadius = UDim.new(1, 0) })
+	ui.AccentBarGradient = UIObject:Create("UIGradient",
+		{ Parent = ui.AccentBar.Instance, Enabled = false, Rotation = 90 })
+	ui.AccentBarGradient:AddToTheme({
+		Color = function()
+			local accentGradient = Library.Theme.AccentGradient
+			return ColorSequence.new({ ColorSequenceKeypoint.new(0, Library.Theme.Accent), ColorSequenceKeypoint.new(1,
+				accentGradient) })
+		end
+	})
 	ui.Text = UIObject:Create("TextLabel", {
 		Parent = ui.Dropdown.Instance,
 		Name = "01",
@@ -6305,7 +6327,7 @@ function Library.Sections:DropdownEx(properties)
 		Size = UDim2.new(0, 0, 0, 15),
 		AnchorPoint = Vector2.new(0, 0.5),
 		BackgroundTransparency = 1,
-		Position = UDim2.new(0, 0, 0.5, 0),
+		Position = UDim2.new(0, 14, 0.5, 0),
 		ZIndex = 2,
 		TextSize = 14,
 	})
@@ -6316,15 +6338,15 @@ function Library.Sections:DropdownEx(properties)
 		FontFace = Library.Font,
 		TextColor3 = Color3.fromRGB(0, 0, 0),
 		Text = "",
-		Size = UDim2.new(0, dropdownEx.Size or 125, 0, 25),
+		Size = UDim2.new(0, dropdownEx.Size or 125, 0, 24),
 		AutoButtonColor = false,
-		AnchorPoint = Vector2.new(1, 0),
-		Position = UDim2.new(1, 0, 0, 0),
+		AnchorPoint = Vector2.new(1, 0.5),
+		Position = UDim2.new(1, -6, 0.5, 0),
 		ZIndex = 2,
 		TextSize = 14,
-		BackgroundColor3 = Color3.fromRGB(26, 26, 29),
+		BackgroundColor3 = Color3.fromRGB(38, 36, 42),
 	})
-	ui.RealDropdown:AddToTheme({ BackgroundColor3 = "Element" })
+	ui.RealDropdown:AddToTheme({ BackgroundColor3 = "Outline" })
 	UIObject:Create("UICorner", { Parent = ui.RealDropdown.Instance, CornerRadius = UDim.new(0, 6) })
 	ui.Value = UIObject:Create("TextLabel", {
 		Parent = ui.RealDropdown.Instance,
@@ -6349,9 +6371,9 @@ function Library.Sections:DropdownEx(properties)
 		Position = UDim2.new(1, -27, 0, 0),
 		Size = UDim2.new(0, 2, 1, 0),
 		ZIndex = 2,
-		BackgroundColor3 = Color3.fromRGB(34, 32, 36),
+		BackgroundColor3 = Color3.fromRGB(27, 26, 29),
 	})
-	ui.Liner:AddToTheme({ BackgroundColor3 = "Outline" })
+	ui.Liner:AddToTheme({ BackgroundColor3 = "Element" })
 	ui.ArrowIcon = UIObject:Create("ImageLabel", {
 		Parent = ui.RealDropdown.Instance,
 		ImageColor3 = Color3.fromRGB(141, 141, 150),
@@ -6449,8 +6471,9 @@ function Library.Sections:DropdownEx(properties)
 		Visible = false,
 		ZIndex = 6,
 	})
-	ui.Text.Instance.Position = UDim2.new(0, 30, 0.5, 0)
-	ui.RealDropdown.Instance.Position = UDim2.new(1, 26, 0, 0)
+	ui.Text.Instance.Position = UDim2.new(0, 44, 0.5, 0)
+	ui.RealDropdown.Instance.Position = UDim2.new(1, 24, 0.5, 0)
+	ui.AccentBar.Instance.Position = UDim2.new(0, -20, 0.5, 0)
 	function dropdownEx.Get()
 		return dropdownEx.Value
 	end
@@ -6460,12 +6483,15 @@ function Library.Sections:DropdownEx(properties)
 	function dropdownEx:RefreshPosition(show)
 		if show then
 			ui.Text:Tween(TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
-				{ Position = UDim2.new(0, 0, 0.5, 0) })
+				{ Position = UDim2.new(0, 14, 0.5, 0) })
 			ui.RealDropdown:Tween(TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
-				{ Position = UDim2.new(1, 0, 0, 0) })
+				{ Position = UDim2.new(1, -6, 0.5, 0) })
+			ui.AccentBar:Tween(TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
+				{ Position = UDim2.new(0, 4, 0.5, 0) })
 		else
-			ui.Text.Instance.Position = UDim2.new(0, 30, 0.5, 0)
-			ui.RealDropdown.Instance.Position = UDim2.new(1, 30, 0, 0)
+			ui.Text.Instance.Position = UDim2.new(0, 44, 0.5, 0)
+			ui.RealDropdown.Instance.Position = UDim2.new(1, 24, 0.5, 0)
+			ui.AccentBar.Instance.Position = UDim2.new(0, -20, 0.5, 0)
 		end
 	end
 	ui.RealDropdown:OnHover(function()
@@ -6584,6 +6610,14 @@ function Library.Sections:DropdownEx(properties)
 		else
 			ui.Value.Instance.Text = dropdownEx.Value or "..."
 		end
+		local hasValue
+		if dropdownEx.Multi then
+			hasValue = #dropdownEx.Value > 0
+		else
+			hasValue = dropdownEx.Value ~= nil and dropdownEx.Value ~= ""
+		end
+		ui.AccentBar:Tween(nil, { BackgroundTransparency = hasValue and 0 or 0.5 })
+		ui.AccentBarGradient.Instance.Enabled = hasValue
 	end
 	function dropdownEx:Set(value)
 		if dropdownEx.Multi then
